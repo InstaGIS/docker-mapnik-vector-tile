@@ -1,6 +1,6 @@
 FROM ubuntu:14.04.4
 
-# Image for 'mapbox/mapnik-vector-tile' @ v1.2.0 (rev b5ec759, 2016.04.19).
+# Image for 'mapbox/mapnik-vector-tile' @ master (rev 81ffe00, 2016.05.13).
 
 # Do not install these protobuf-related packages because they may cause conflict
 #	and disrupt the compilation.
@@ -34,8 +34,9 @@ RUN apt-get update -q && apt-get --no-install-recommends -y install \
 # warning: repo 'mapnik-vector-tile' must be cloned since downloading a revision
 #	archive will not make 'mapnik-config' available, and compilation will fail.
 # TODO: make sure warning above is correct.
-RUN git clone --depth=10 --branch=v1.2.0 'https://github.com/mapbox/mapnik-vector-tile.git' mapnik-vector-tile \
+RUN git clone --depth=10 --branch=master 'https://github.com/mapbox/mapnik-vector-tile.git' mapnik-vector-tile \
 	&& cd mapnik-vector-tile \
+	&& git checkout 81ffe00 \
 	&& git submodule update --init
 
 # note: had to split in 3 'RUN's because 'source' is a bash function that is not
